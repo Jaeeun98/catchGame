@@ -1,0 +1,77 @@
+body {
+    width:100%;
+    background :#222;
+    padding-top:100px;
+}
+
+section {
+    width:800px;
+    height:500px;
+    background: url('../img/carrotBackground.png') no-repeat;
+    background-size:100% 100%;
+    border-radius: 10px;
+    margin: auto;
+    text-align: center;
+    font-size:30px;  
+}
+
+button {
+    font-size:30px;
+    border:3px solid #000;
+    width:50px;
+    height:50px;
+    line-height: 20px;
+    border-radius: 5px;
+    background:#f1d5a2;
+}
+header {
+    height:250px;
+    padding-top:20px;
+}
+header > div {
+    text-align: center;
+    margin:20px auto;
+}
+.timer {
+    background:#fff;
+    width:150px;
+    padding:10px;
+    border-radius: 10px;
+    border:3px solid #000;
+}
+.count {
+    background:pink;
+    width:60px;
+    height:60px;
+    border-radius: 50%;
+    line-height: 1.7;
+    border:3px solid #000;
+}
+.field {
+    height:250px;
+    position:relative;
+}
+ul {
+    height:100%;
+    display:none;
+}
+ul > li {
+    position:absolute;
+    cursor: pointer;
+}
+.popup {
+    margin:auto;
+    transform : translateY(-120%);
+    background-color: #00000190;
+    width:300px;
+    height:180px;
+    border-radius: 10px;
+    padding-top:30px;
+    display: none;
+}
+.popup p {
+    padding-top:20px;
+    color:#fff;
+    font-size: 40px;
+}
+
