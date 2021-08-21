@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'DungGeunMo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background: cornflowerblue;
+    text-align: center;
+    height:100vh;
+}
+
+header {
+    margin-top: 50px;
+    color: #fff;
+    font-family: 'DungGeunMo';
+    font-size: 130px;
+    font-weight: bold;
+    letter-spacing:1px;
+}
+
+h1 {
+    /*text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);*/
+    text-shadow: 4px 3px 0 #7A7A7A;
+}
+
+section {
+    margin: auto;
+    width: 1000px;
+    height:70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;  
+}
+
+a {
+    width: 100%;
+}
+
+.game {
+    width: 100%;
+    cursor: pointer;
+}
+
+.thumbnail {
+    width: 85%;
+    height:270px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.game h2 {
+    font-family: 'DungGeunMo';
+    font-size: 40px;
+    text-shadow: 4px 3px 0 #7A7A7A;
+    color: #fff;
+    padding:10px 0;
+}
