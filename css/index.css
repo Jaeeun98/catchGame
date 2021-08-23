@@ -9,6 +9,7 @@ body {
     background: cornflowerblue;
     text-align: center;
     height:100vh;
+    overflow: hidden;
 }
 
 header {
@@ -34,11 +35,11 @@ section {
     align-items: center;  
 }
 
-a {
-    width: 100%;
-}
-
 .game {
+    width: 100%;
+
+}
+a {
     width: 100%;
     cursor: pointer;
 }
@@ -55,5 +56,14 @@ a {
     font-size: 40px;
     text-shadow: 4px 3px 0 #7A7A7A;
     color: #fff;
-    padding:10px 0;
+    padding-top:20px;
 }
+
+.ex {
+    margin-top: 20px;
+    line-height:1.7;
+    color:#fff;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: default;
+} 

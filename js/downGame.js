@@ -1,4 +1,4 @@
-const item = document.querySelector('.item');
+
 const list = document.querySelectorAll('.item')[0].children
 const meat = document.querySelectorAll('.meat');
 const startBtn = document.querySelector('.start');
@@ -6,8 +6,6 @@ const stopBtn = document.querySelector('.stop');
 
 
 window.onload = setPositionX;
-
-
 
 function setPositionX(){
     for(let i=0; i<list.length; i++){
@@ -19,9 +17,10 @@ function setPositionX(){
 function gameStart(){
     let i=0;
     const moveAnimate = setInterval(() => {
-        const rect = list[i].getBoundingClientRect().left;
-        const x = rect - 130;
-
+        const sectionX = document.querySelector('section').getBoundingClientRect().left;
+        const listX = list[i].getBoundingClientRect().left;
+        const x = listX - sectionX;
+        
         list[i].style.zIndex = 0;
         list[i].animate([
             { transform :`translate(${x}px, 500px)`}
@@ -37,9 +36,11 @@ function gameStart(){
 
 function gameStop(){
     const getAni = list[0].getAnimations();
-    getAni.forEach(animation => animation.finish())
     console.log(getAni);
+    getAni.pause();
+    
 }
+
 
 startBtn.addEventListener('click', gameStart);
 stopBtn.addEventListener('click', gameStop)
