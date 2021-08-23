@@ -3,6 +3,8 @@ const list = document.querySelectorAll('.item')[0].children
 const startBtn = document.querySelector('.start');
 const stopBtn = document.querySelector('.stop');
 const scoreNum = document.querySelector('.score');
+const modal = document.querySelector('.modal');
+const resultScore = document.querySelector('.resultScore');
 let startEnd = '';
 let score = 0;
 
@@ -45,12 +47,20 @@ function gameStart(){
     }, 1000)
 }
 
+function viewModal(){
+    modal.style.display = 'block';
+    resultScore.innerText = score;
+}
+
 function gameStop(){
+    viewModal();
+    
     for(let i=0; i < list.length; i++){
         const getAni = list[i].getAnimations();
         getAni.length != 0 && getAni[0].cancel();
         list[i].style.zIndex = -1;
     }
+
    startEnd = 'stop'
    scoreNum.innerText = 0;
 }
@@ -58,9 +68,6 @@ function gameStop(){
 function catchFood(e){
     e.style.zIndex = -1;
     e.getAnimations()[0].cancel();
-    
-    console.log(e);
-    
 
     setTimeout(() => {
         const sectionX = document.querySelector('section').getBoundingClientRect().left;
@@ -74,7 +81,7 @@ function catchFood(e){
             duration:4000,
             iterations:Infinity,
         })
-    }, 3000)
+    }, 1000)
     
 }
 
@@ -90,7 +97,6 @@ function scoring(e){
         catchFood(li);
     }
 }
-
 
 startBtn.addEventListener('click', gameStart);
 stopBtn.addEventListener('click', gameStop)

@@ -45,6 +45,7 @@ a {
 }
 
 .thumbnail {
+    border: 2px solid #fff;
     width: 85%;
     height:270px;
     overflow: hidden;
