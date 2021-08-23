@@ -1,9 +1,10 @@
-
+const item = document.querySelector('.item');
 const list = document.querySelectorAll('.item')[0].children
-const meat = document.querySelectorAll('.meat');
 const startBtn = document.querySelector('.start');
 const stopBtn = document.querySelector('.stop');
+const scoreNum = document.querySelector('.score');
 let startEnd = '';
+let score = 0;
 
 function setPositionX(){
     for(let i=0; i<list.length; i++){
@@ -50,12 +51,47 @@ function gameStop(){
         getAni.length != 0 && getAni[0].cancel();
         list[i].style.zIndex = -1;
     }
-
    startEnd = 'stop'
+   scoreNum.innerText = 0;
 }
 
+function catchFood(e){
+    e.style.zIndex = -1;
+    e.getAnimations()[0].cancel();
+    
+    console.log(e);
+    
 
+    setTimeout(() => {
+        const sectionX = document.querySelector('section').getBoundingClientRect().left;
+        const listX = e.getBoundingClientRect().left;
+        const x = listX - sectionX;
+
+        e.style.zIndex = 1;
+        e.animate([
+            { transform :`translate(${x}px, 500px)`}
+        ], {
+            duration:4000,
+            iterations:Infinity,
+        })
+    }, 3000)
+    
+}
+
+function scoring(e){
+    const li = e.target.parentElement;
+    
+    if(li.className === 'meat'){
+        gameStop();
+        
+    } else {
+        score++;
+        scoreNum.innerText = score;
+        catchFood(li);
+    }
+}
 
 
 startBtn.addEventListener('click', gameStart);
 stopBtn.addEventListener('click', gameStop)
+item.addEventListener('click', e => scoring(e))

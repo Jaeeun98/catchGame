@@ -39,9 +39,6 @@ header img {
     align-items: center;
     letter-spacing: 2px;
 }
-.heart {
-    display:flex;
-}
 main {
     height:500px;
 }
