@@ -5,6 +5,7 @@ const stopBtn = document.querySelector('.stop');
 const scoreNum = document.querySelector('.score');
 const modal = document.querySelector('.modal');
 const resultScore = document.querySelector('.resultScore');
+const replayBtn = document.querySelector('.replay');
 let startEnd = '';
 let score = 0;
 
@@ -17,7 +18,7 @@ function setPositionX(){
 
 function gameStart(){
     setPositionX();
-
+    score = 0;
     let i=0;
     const moveAnimate = setInterval(() => {
         const sectionX = document.querySelector('section').getBoundingClientRect().left;
@@ -82,7 +83,6 @@ function catchFood(e){
             iterations:Infinity,
         })
     }, 1000)
-    
 }
 
 function scoring(e){
@@ -92,7 +92,11 @@ function scoring(e){
         gameStop();
         
     } else {
-        score++;
+        if(li.className === 'noMeat'){
+            score += 4;
+        } else {
+            score++;
+        } 
         scoreNum.innerText = score;
         catchFood(li);
     }
@@ -100,4 +104,10 @@ function scoring(e){
 
 startBtn.addEventListener('click', gameStart);
 stopBtn.addEventListener('click', gameStop)
-item.addEventListener('click', e => scoring(e))
+item.addEventListener('click', e => {
+    e.target.tagName == 'IMG' && scoring(e);
+})
+replayBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    gameStart();
+});
