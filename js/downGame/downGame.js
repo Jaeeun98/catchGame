@@ -27,7 +27,7 @@ function gameStart(){
 
         //animate 부여
         list[i].animate([
-            { transform :`translate(${x}px, 500px)`}
+            { transform :`translate(${x}px, 400px)`}
         ], {
             duration:4000,
             iterations:Infinity,
@@ -51,22 +51,20 @@ function gameStart(){
 function viewModal(){
     modal.style.display = 'block';
     resultScore.innerText = score;
+    scoreNum.innerText = 0;
 }
 
 function gameStop(){
-    viewModal();
-    
     for(let i=0; i < list.length; i++){
         const getAni = list[i].getAnimations();
         getAni.length != 0 && getAni[0].cancel();
         list[i].style.zIndex = -1;
     }
-
    startEnd = 'stop'
-   scoreNum.innerText = 0;
+   viewModal();
 }
 
-function catchFood(e){
+async function catchFood(e){
     e.style.zIndex = -1;
     e.getAnimations()[0].cancel();
 
@@ -77,35 +75,29 @@ function catchFood(e){
 
         e.style.zIndex = 1;
         e.animate([
-            { transform :`translate(${x}px, 500px)`}
+            { transform: `translate(${x}px, 400px)` }
         ], {
-            duration:4000,
-            iterations:Infinity,
+            duration: 4000,
+            iterations: Infinity,
         })
+
+        e.className === 'meat' ? gameStop() : scoring(e);
     }, 1000)
 }
 
 function scoring(e){
-    const li = e.target.parentElement;
-    
-    if(li.className === 'meat'){
-        gameStop();
-        
+    if(e.className === 'noMeat'){
+        score += 4;
     } else {
-        if(li.className === 'noMeat'){
-            score += 4;
-        } else {
-            score++;
-        } 
-        scoreNum.innerText = score;
-        catchFood(li);
-    }
+        score++;
+    } 
+    scoreNum.innerText = score;
 }
 
 startBtn.addEventListener('click', gameStart);
 stopBtn.addEventListener('click', gameStop)
 item.addEventListener('click', e => {
-    e.target.tagName == 'IMG' && scoring(e);
+    e.target.tagName == 'IMG' && catchFood(e.target.parentElement);
 })
 replayBtn.addEventListener('click', () => {
     modal.style.display = 'none';
