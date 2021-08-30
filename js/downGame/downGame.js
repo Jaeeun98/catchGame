@@ -4,7 +4,6 @@ const startBtn = document.querySelector('.start');
 const stopBtn = document.querySelector('.stop');
 const scoreNum = document.querySelector('.score');
 const modal = document.querySelector('.modal');
-const resultScore = document.querySelector('.resultScore');
 const replayBtn = document.querySelector('.replay');
 let startEnd = '';
 let score = 0;
@@ -16,24 +15,19 @@ function setPositionX(){
     }
 }
 
-function gameStart(){
-    setPositionX();
-    score = 0;
-    let i=0;
+function foodMove(){
+    let i = 0;
     const moveAnimate = setInterval(() => {
         const sectionX = document.querySelector('section').getBoundingClientRect().left;
         const listX = list[i].getBoundingClientRect().left;
         const x = listX - sectionX;
 
-        //animate 부여
-        list[i].animate([
+        const ani = list[i].animate([
             { transform :`translate(${x}px, 400px)`}
         ], {
             duration:4000,
-            iterations:Infinity,
         })
-        
-        //gameStop이면, animation 제거 
+
         if(startEnd === 'stop'){
             list[i].getAnimations()[0].cancel();
             i = list.length;
@@ -43,63 +37,63 @@ function gameStart(){
             list[i].style.zIndex = 0;
             i++;
         }
-        
+
         i == list.length && clearInterval(moveAnimate);
+        ani.addEventListener('finish', function(e){
+            const target = e.target.effect.target;
+
+            
+            target.className != 'meat' ? gameStop() : target.style.zIndex = -1
+        })
     }, 1000)
+
+    
+}
+
+function gameStart(){
+    setPositionX();
+    foodMove();
+    score = 0;
 }
 
 function viewModal(){
+    const resultScore = document.querySelector('.resultScore');
+
+    for(let i=0; i < list.length; i++){
+        list[i].style.zIndex = -1;
+    }
+
     modal.style.display = 'block';
     resultScore.innerText = score;
     scoreNum.innerText = 0;
+
+    startEnd = 'stop'
 }
 
 function gameStop(){
-    for(let i=0; i < list.length; i++){
-        const getAni = list[i].getAnimations();
-        getAni.length != 0 && getAni[0].cancel();
-        list[i].style.zIndex = -1;
-    }
-   startEnd = 'stop'
    viewModal();
 }
 
-async function catchFood(e){
+
+function catchFood(e){
     e.style.zIndex = -1;
     e.getAnimations()[0].cancel();
 
-    setTimeout(() => {
-        const sectionX = document.querySelector('section').getBoundingClientRect().left;
-        const listX = e.getBoundingClientRect().left;
-        const x = listX - sectionX;
-
-        e.style.zIndex = 1;
-        e.animate([
-            { transform: `translate(${x}px, 400px)` }
-        ], {
-            duration: 4000,
-            iterations: Infinity,
-        })
-
-        e.className === 'meat' ? gameStop() : scoring(e);
-    }, 1000)
+    e.className === 'meat' ? gameStop() : scoring(e)
 }
 
 function scoring(e){
-    if(e.className === 'noMeat'){
-        score += 4;
-    } else {
-        score++;
-    } 
+    e.className === 'noMeat' ? score += 4 : score++
     scoreNum.innerText = score;
 }
 
-startBtn.addEventListener('click', gameStart);
 stopBtn.addEventListener('click', gameStop)
-item.addEventListener('click', e => {
-    e.target.tagName == 'IMG' && catchFood(e.target.parentElement);
-})
+
 replayBtn.addEventListener('click', () => {
     modal.style.display = 'none';
     gameStart();
 });
+startBtn.addEventListener('click', gameStart);
+item.addEventListener('click', e => {
+    e.target.tagName == 'IMG' && catchFood(e.target.parentElement);
+})
