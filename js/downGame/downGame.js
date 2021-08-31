@@ -7,6 +7,7 @@ const modal = document.querySelector('.modal');
 const resultBtn = document.querySelector('.resultplay');
 let startEnd = '';
 let score = 0;
+let mes = 3000;
 
 function setPositionX(){
     for(let i=0; i<list.length; i++){
@@ -25,7 +26,7 @@ function foodMove(){
         const ani = list[i].animate([
             { transform :`translate(${x}px, 400px)`}
         ], {
-            duration:3000,
+            duration:mes,
         })
 
         if(startEnd === 'stop'){
@@ -37,7 +38,6 @@ function foodMove(){
             list[i].style.zIndex = 0;
             i++;
         }
-        console.log(i);
 
         ani.addEventListener('finish', function(e){
             const target = e.target.effect.target;
@@ -51,6 +51,7 @@ function reset(){
     score = 0;
     scoreNum.innerText = 0;
     startEnd = '';
+    mes = 3000;
 }
 
 function gameStart(){
@@ -101,7 +102,12 @@ function replay(e){
     }
 
     modal.style.display = 'none';
-    e.target.innerText === 'NEXT' ? foodMove() : gameStart();
+    if(e.target.innerText === 'NEXT'){
+        mes -= 500;
+        foodMove();
+    } else {
+        gameStart();
+    } 
 }
 
 stopBtn.addEventListener('click', gameOver)
