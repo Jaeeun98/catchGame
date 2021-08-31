@@ -37,19 +37,26 @@ function foodMove(){
             list[i].style.zIndex = 0;
             i++;
         }
+        console.log(i);
 
         ani.addEventListener('finish', function(e){
             const target = e.target.effect.target;
             target.className != 'meat' ? gameOver() : target.style.zIndex = -1
         })
         i == list.length && clearInterval(moveAnimate);
-    }, 1000) 
+    }, 500) 
+}
+
+function reset(){
+    score = 0;
+    scoreNum.innerText = 0;
+    startEnd = '';
 }
 
 function gameStart(){
+    reset();
     setPositionX();
     foodMove();
-    score = 0;
 }
 
 function resultModal(icon, text, btn){
@@ -62,15 +69,14 @@ function resultModal(icon, text, btn){
     resultText.innerText = `YOU ${text}`;
     resultScore.innerText = score;
     resultBtn.innerText = btn;
-    scoreNum.innerText = 0;
-    startEnd = 'stop'
 }
 
 function gameOver(){
+    startEnd = 'stop'
+
     for(let i=0; i < list.length; i++){
         list[i].style.zIndex = -1;
     }
-
     resultModal('🏅', 'LOSER', 'REPLAY');
 }
 
@@ -86,11 +92,19 @@ function scoring(e){
     e.target.alt === 'noMeat' ? score += 4 : score++
     scoreNum.innerText = score;
 
-    e.target.alt ==='tomato' && resultModal('🥇', 'WIN', 'NEXT')
+    (e.target.alt ==='tomato' && score%5 == 0) && resultModal('🥇', 'WIN', 'NEXT')
+}
+
+function replay(e){
+    for(let i=0; i<list.length; i++){
+        list[i].getAnimations()[0] && list[i].getAnimations()[0].cancel();
+    }
+
+    modal.style.display = 'none';
+    e.target.innerText === 'NEXT' ? foodMove() : gameStart();
 }
 
 stopBtn.addEventListener('click', gameOver)
 startBtn.addEventListener('click', gameStart);
-item.addEventListener('click', e => {
-    e.target.tagName == 'IMG' && catchFood(e);
-})
+item.addEventListener('click', e => e.target.tagName == 'IMG' && catchFood(e))
+resultBtn.addEventListener('click', e => replay(e))
