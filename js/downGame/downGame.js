@@ -4,7 +4,7 @@ const startBtn = document.querySelector('.start');
 const stopBtn = document.querySelector('.stop');
 const scoreNum = document.querySelector('.score');
 const modal = document.querySelector('.modal');
-const replayBtn = document.querySelector('.replay');
+const resultBtn = document.querySelector('.resultplay');
 let startEnd = '';
 let score = 0;
 
@@ -25,7 +25,7 @@ function foodMove(){
         const ani = list[i].animate([
             { transform :`translate(${x}px, 400px)`}
         ], {
-            duration:4000,
+            duration:3000,
         })
 
         if(startEnd === 'stop'){
@@ -38,16 +38,12 @@ function foodMove(){
             i++;
         }
 
-        i == list.length && clearInterval(moveAnimate);
         ani.addEventListener('finish', function(e){
             const target = e.target.effect.target;
-
-            
-            target.className != 'meat' ? gameStop() : target.style.zIndex = -1
+            target.className != 'meat' ? gameOver() : target.style.zIndex = -1
         })
-    }, 1000)
-
-    
+        i == list.length && clearInterval(moveAnimate);
+    }, 1000) 
 }
 
 function gameStart(){
@@ -56,44 +52,45 @@ function gameStart(){
     score = 0;
 }
 
-function viewModal(){
+function resultModal(icon, text, btn){
+    const resultIcon = document.querySelector('.resultIcon');
+    const resultText = document.querySelector('.resultWin');
     const resultScore = document.querySelector('.resultScore');
 
+    modal.style.display = 'block';
+    resultIcon.innerText = icon
+    resultText.innerText = `YOU ${text}`;
+    resultScore.innerText = score;
+    resultBtn.innerText = btn;
+    scoreNum.innerText = 0;
+    startEnd = 'stop'
+}
+
+function gameOver(){
     for(let i=0; i < list.length; i++){
         list[i].style.zIndex = -1;
     }
 
-    modal.style.display = 'block';
-    resultScore.innerText = score;
-    scoreNum.innerText = 0;
-
-    startEnd = 'stop'
+    resultModal('🏅', 'LOSER', 'REPLAY');
 }
-
-function gameStop(){
-   viewModal();
-}
-
 
 function catchFood(e){
-    e.style.zIndex = -1;
-    e.getAnimations()[0].cancel();
+    const list = e.target.parentElement;
 
-    e.className === 'meat' ? gameStop() : scoring(e)
+    list.style.zIndex = -1;
+    list.getAnimations()[0].cancel();
+    list.className === 'meat' ? gameOver() : scoring(e)
 }
 
 function scoring(e){
-    e.className === 'noMeat' ? score += 4 : score++
+    e.target.alt === 'noMeat' ? score += 4 : score++
     scoreNum.innerText = score;
+
+    e.target.alt ==='tomato' && resultModal('🥇', 'WIN', 'NEXT')
 }
 
-stopBtn.addEventListener('click', gameStop)
-
-replayBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-    gameStart();
-});
+stopBtn.addEventListener('click', gameOver)
 startBtn.addEventListener('click', gameStart);
 item.addEventListener('click', e => {
-    e.target.tagName == 'IMG' && catchFood(e.target.parentElement);
+    e.target.tagName == 'IMG' && catchFood(e);
 })
