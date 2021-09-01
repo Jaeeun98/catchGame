@@ -6,6 +6,7 @@ const scoreNum = document.querySelector('.score');
 const modal = document.querySelector('.modal');
 const resultBtn = document.querySelector('.resultplay');
 const gameRuleBtn = document.querySelector('.gameRuleBtn');
+const bg = new Audio('../sound/bg.mp3');
 let startEnd = '';
 let score = 0;
 let mes = 3000;
@@ -59,6 +60,7 @@ function gameStart(){
     reset();
     setPositionX();
     foodMove();
+    soundPlay('bg');
 }
 
 function resultModal(icon, text, btn){
@@ -71,6 +73,8 @@ function resultModal(icon, text, btn){
     resultText.innerText = `YOU ${text}`;
     resultScore.innerText = score;
     resultBtn.innerText = btn;
+
+    text === 'WIN' ? soundPlay('gameClear') : soundPlay('gameOver');
 }
 
 function gameOver(){
@@ -78,8 +82,26 @@ function gameOver(){
 
     for(let i=0; i < list.length; i++){
         list[i].style.zIndex = -1;
+        list[i].getAnimations()[0] && list[i].getAnimations()[0].cancel();
     }
+
     resultModal('🏅', 'LOSER', 'REPLAY');
+}
+
+function soundPlay(bgm){
+    const catchBgm = new Audio('../sound/catch.mp3');
+    const gameClearBgm = new Audio('../sound/gameClear.mp3');
+    const gameOutBgm = new Audio('../sound/gameOut.mp3');
+    const gameRuleModalBgm = new Audio('../sound/gameRuleModal.mp3');
+
+    bgm === 'bg' && !bg.paused || bg.play();
+    bgm === 'bgStop' && bg.pause();
+    bgm === 'gameOver' && gameOutBgm.play();
+    bgm === 'catch' && catchBgm.play();
+    bgm === 'gameClear' && gameClearBgm.play();
+    bgm === 'gameRule' && gameRuleModalBgm.play();
+
+    
 }
 
 function catchFood(e){
@@ -87,7 +109,9 @@ function catchFood(e){
 
     list.style.zIndex = -1;
     list.getAnimations()[0].cancel();
-    list.className === 'meat' ? gameOver() : scoring(e)
+
+    list.className === 'meat' ? gameOver() : scoring(e);
+    
 }
 
 function scoring(e){
@@ -95,12 +119,11 @@ function scoring(e){
     scoreNum.innerText = score;
 
     (e.target.alt ==='tomato' && score%5 == 0) && resultModal('🥇', 'WIN', 'NEXT')
+    soundPlay('catch');
 }
 
 function replay(e){
-    for(let i=0; i<list.length; i++){
-        list[i].getAnimations()[0] && list[i].getAnimations()[0].cancel();
-    }
+
 
     modal.style.display = 'none';
     if(e.target.innerText === 'NEXT'){
@@ -116,11 +139,11 @@ function viewGameRule(){
     const closeBtn = document.querySelector('.closeBtn');
     gameRule.style.zIndex = '0';
 
+    soundPlay('gameRule');
+
     closeBtn.addEventListener('click', () => {
         gameRule.style.zIndex = '-1';
     })
-
-    
 }
 
 stopBtn.addEventListener('click', gameOver)

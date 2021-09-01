@@ -90,6 +90,9 @@ img {
     text-align: center;
     border:2px solid #fff;
     display: none;
+    font-family: 'DungGeunMo';
+    font-weight: bold;
+    font-size: 30px;
 }
 
 .modal h3 {
