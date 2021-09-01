@@ -5,6 +5,7 @@ const stopBtn = document.querySelector('.stop');
 const scoreNum = document.querySelector('.score');
 const modal = document.querySelector('.modal');
 const resultBtn = document.querySelector('.resultplay');
+const gameRuleBtn = document.querySelector('.gameRuleBtn');
 let startEnd = '';
 let score = 0;
 let mes = 3000;
@@ -110,7 +111,20 @@ function replay(e){
     } 
 }
 
+function viewGameRule(){
+    const gameRule = document.querySelector('.gameRule');
+    const closeBtn = document.querySelector('.closeBtn');
+    gameRule.style.zIndex = '0';
+
+    closeBtn.addEventListener('click', () => {
+        gameRule.style.zIndex = '-1';
+    })
+
+    
+}
+
 stopBtn.addEventListener('click', gameOver)
 startBtn.addEventListener('click', gameStart);
 item.addEventListener('click', e => e.target.tagName == 'IMG' && catchFood(e))
 resultBtn.addEventListener('click', e => replay(e))
+gameRuleBtn.addEventListener('click', viewGameRule)
