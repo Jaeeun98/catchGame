@@ -3,6 +3,7 @@ const ul = document.getElementsByTagName('ul')[0];
 const li = document.getElementsByTagName('li');
 const popup = document.querySelector('.popup');
 const count = document.querySelector('.count');
+const gameRuleBtn = document.querySelector('.gameRuleBtn');
 const bg = new Audio('../sound/bg.mp3');
 let timeout;
 let resultCount = 0;
@@ -36,8 +37,8 @@ function play(){
     }
 
     for(let i=0; i<li.length; i++){
-        const randomX = Math.floor(Math.random() * 730);
-        const randomY = Math.floor(Math.random() * 130);
+        const randomX = Math.floor(Math.random() * 950);
+        const randomY = Math.floor(Math.random() * 200);
 
         li[i].style.transform = `translate(${randomX}px, ${randomY}px)`;
     }
@@ -83,7 +84,7 @@ function del(e){
         e.path[1].style.display = 'none';
 
         resultCount++;
-        if(resultCount == 10) popupAdd('You Win🥇');
+        if(resultCount == 15) popupAdd('You Win🥇');
 
         audioPlay('carrot_pull');
         
@@ -92,14 +93,20 @@ function del(e){
     count.innerText = resultCount;
 }
 
-button[0].addEventListener('click', play);
-button[1].addEventListener('click', (e) => {
-    replay(e);
-});
+function viewGameRule(){
+    const gameRule = document.querySelector('.gameRule');
+    const closeBtn = document.querySelector('.closeBtn');
+    gameRule.style.zIndex = '0';
 
-ul.addEventListener('click', (e) => {
-    del(e);
-})
+    audioPlay('gameRule');
+
+    closeBtn.addEventListener('click', () => gameRule.style.zIndex = '-1')
+}
+
+button[0].addEventListener('click', play);
+button[1].addEventListener('click', e => replay(e));
+ul.addEventListener('click', e => del(e));
+gameRuleBtn.addEventListener('click', viewGameRule)
 
 
 /*
