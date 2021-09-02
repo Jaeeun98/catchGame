@@ -3,6 +3,7 @@ const ul = document.getElementsByTagName('ul')[0];
 const li = document.getElementsByTagName('li');
 const popup = document.querySelector('.popup');
 const count = document.querySelector('.count');
+const bg = new Audio('../sound/bg.mp3');
 let timeout;
 let resultCount = 0;
 
@@ -44,6 +45,7 @@ function play(){
     count.innerText = resultCount;
     
     timerCountDown();
+    audioPlay('bg');
     ul.style.display = 'block';   
 }
 
@@ -70,7 +72,9 @@ function popupAdd(text){
 
 function audioPlay(sound){
     const audio = new Audio(`../sound/${sound}.mp3`);
-    audio.play();
+
+    sound === 'bg' && !bg.paused || bg.play();
+    sound !== 'bg' && audio.play();
 }
 
 function del(e){
