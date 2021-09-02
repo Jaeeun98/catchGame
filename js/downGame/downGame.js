@@ -88,20 +88,11 @@ function gameOver(){
     resultModal('🏅', 'LOSER', 'REPLAY');
 }
 
-function soundPlay(bgm){
-    const catchBgm = new Audio('../sound/catch.mp3');
-    const gameClearBgm = new Audio('../sound/gameClear.mp3');
-    const gameOutBgm = new Audio('../sound/gameOut.mp3');
-    const gameRuleModalBgm = new Audio('../sound/gameRuleModal.mp3');
+function soundPlay(sound){
+    const playSound = new Audio(`../sound/${sound}.mp3`)
 
-    bgm === 'bg' && !bg.paused || bg.play();
-    bgm === 'bgStop' && bg.pause();
-    bgm === 'gameOver' && gameOutBgm.play();
-    bgm === 'catch' && catchBgm.play();
-    bgm === 'gameClear' && gameClearBgm.play();
-    bgm === 'gameRule' && gameRuleModalBgm.play();
-
-    
+    sound === 'bg' && !bg.paused || bg.play();
+    sound !== 'bg' && playSound.play();
 }
 
 function catchFood(e){
@@ -109,9 +100,7 @@ function catchFood(e){
 
     list.style.zIndex = -1;
     list.getAnimations()[0].cancel();
-
     list.className === 'meat' ? gameOver() : scoring(e);
-    
 }
 
 function scoring(e){
@@ -123,15 +112,13 @@ function scoring(e){
 }
 
 function replay(e){
-
-
     modal.style.display = 'none';
+
     if(e.target.innerText === 'NEXT'){
         mes -= 500;
         foodMove();
-    } else {
-        gameStart();
-    } 
+    } else gameStart();
+
 }
 
 function viewGameRule(){
@@ -141,9 +128,7 @@ function viewGameRule(){
 
     soundPlay('gameRule');
 
-    closeBtn.addEventListener('click', () => {
-        gameRule.style.zIndex = '-1';
-    })
+    closeBtn.addEventListener('click', () => gameRule.style.zIndex = '-1')
 }
 
 stopBtn.addEventListener('click', gameOver)

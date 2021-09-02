@@ -92,6 +92,7 @@ button[0].addEventListener('click', play);
 button[1].addEventListener('click', (e) => {
     replay(e);
 });
+
 ul.addEventListener('click', (e) => {
     del(e);
 })
