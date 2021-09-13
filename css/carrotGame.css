@@ -10,7 +10,6 @@ body {
     background :#222;
     padding-top:60px;
 }
-
 section {
     position: relative;
     width:1000px;
@@ -22,17 +21,23 @@ section {
     text-align: center;
     font-size:30px;  
 }
-
-button {
+a {
+    display:inline-block;
+    color:#222;
+    line-height: 35px;;
+}
+button, a {
     font-size:30px;
     border:3px solid #000;
     width:50px;
     height:50px;
-    line-height: 20px;
     border-radius: 5px;
     background:#f1d5a2;
+    color:#222;
 }
-
+.play {
+    line-height: 20px;;
+}
 header {
     height:400px;
     padding-top:20px;
@@ -83,10 +88,6 @@ ul > li {
     color:#fff;
     font-size: 40px;
 }
-.back a {
-    color:#222;
-}
-
 .gameRuleBtn {
     position: absolute;
     top: 20px;
