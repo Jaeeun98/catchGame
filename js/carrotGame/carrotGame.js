@@ -1,12 +1,20 @@
+'use strict';
+
+import AudioPlay from "../game/audioPlay.js";
+import GameRule from "../game/gameRule.js";
+
 const button = document.getElementsByTagName('button');
 const ul = document.getElementsByTagName('ul')[0];
 const li = document.getElementsByTagName('li');
 const popup = document.querySelector('.popup');
 const count = document.querySelector('.count');
 const gameRuleBtn = document.querySelector('.gameRuleBtn');
-const bg = new Audio('../sound/bg.mp3');
+
 let timeout;
 let resultCount = 0;
+
+const audioPlay = new AudioPlay();
+const gameRule = new GameRule();
 
 function timerCountDown(){
     let timer = document.querySelector('.timer');
@@ -46,7 +54,7 @@ function play(){
     count.innerText = resultCount;
     
     timerCountDown();
-    audioPlay('bg');
+    audioPlay.soundPlay('bg');
     ul.style.display = 'block';   
 }
 
@@ -68,14 +76,7 @@ function popupAdd(text){
     popup.style.display = 'block';
     result.innerText = text;
 
-    text == 'You Win🥇' ? audioPlay('game_win') : audioPlay('bug_pull');
-}
-
-function audioPlay(sound){
-    const audio = new Audio(`../sound/${sound}.mp3`);
-
-    sound === 'bg' && !bg.paused || bg.play();
-    sound !== 'bg' && audio.play();
+    text == 'You Win🥇' ? audioPlay.soundPlay('game_win') : audioPlay.soundPlay('bug_pull');
 }
 
 function del(e){
@@ -86,24 +87,17 @@ function del(e){
         resultCount++;
         if(resultCount == 15) popupAdd('You Win🥇');
 
-        audioPlay('carrot_pull');
+        audioPlay.soundPlay('carrot_pull');
         
     } else popupAdd('You Loser😂');
 
     count.innerText = resultCount;
 }
 
-function viewGameRule(){
-    const gameRule = document.querySelector('.gameRule');
-    const closeBtn = document.querySelector('.closeBtn');
-    gameRule.style.zIndex = '0';
-
-    audioPlay('gameRule');
-
-    closeBtn.addEventListener('click', () => gameRule.style.zIndex = '-1')
-}
-
 button[0].addEventListener('click', play);
 button[1].addEventListener('click', e => replay(e));
 ul.addEventListener('click', e => del(e));
-gameRuleBtn.addEventListener('click', viewGameRule)
+gameRuleBtn.addEventListener('click', () => {
+    gameRule.viewGameRule();
+    audioPlay.soundPlay('gameRule');
+})

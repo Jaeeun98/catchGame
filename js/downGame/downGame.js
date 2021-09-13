@@ -1,3 +1,8 @@
+'use strict';
+
+import AudioPlay from "../game/audioPlay.js";
+import GameRule from "../game/gameRule.js";
+
 const item = document.querySelector('.item');
 const list = document.querySelectorAll('.item')[0].children
 const startBtn = document.querySelector('.start');
@@ -6,10 +11,13 @@ const scoreNum = document.querySelector('.score');
 const modal = document.querySelector('.modal');
 const resultBtn = document.querySelector('.resultplay');
 const gameRuleBtn = document.querySelector('.gameRuleBtn');
-const bg = new Audio('../sound/bg.mp3');
+
 let startEnd = '';
 let score = 0;
 let mes = 3000;
+
+const audioPlay = new AudioPlay();
+const gameRule = new GameRule();
 
 function setPositionX(){
     for(let i=0; i<list.length; i++){
@@ -60,7 +68,7 @@ function gameStart(){
     reset();
     setPositionX();
     foodMove();
-    soundPlay('bg');
+    audioPlay.soundPlay('bg');
 }
 
 function resultModal(icon, text, btn){
@@ -74,7 +82,7 @@ function resultModal(icon, text, btn){
     resultScore.innerText = score;
     resultBtn.innerText = btn;
 
-    text === 'WIN' ? soundPlay('gameClear') : soundPlay('gameOver');
+    text === 'WIN' ? audioPlay.soundPlay('gameClear') : audioPlay.soundPlay('gameOver');
 }
 
 function gameOver(){
@@ -86,13 +94,6 @@ function gameOver(){
     }
 
     resultModal('🏅', 'LOSER', 'REPLAY');
-}
-
-function soundPlay(sound){
-    const playSound = new Audio(`../sound/${sound}.mp3`)
-
-    sound === 'bg' && !bg.paused || bg.play();
-    sound !== 'bg' && playSound.play();
 }
 
 function catchFood(e){
@@ -108,7 +109,7 @@ function scoring(e){
     scoreNum.innerText = score;
 
     (e.target.alt ==='tomato' && score%5 == 0) && resultModal('🥇', 'WIN', 'NEXT')
-    soundPlay('catch');
+    audioPlay.soundPlay('catch');
 }
 
 function replay(e){
@@ -121,18 +122,11 @@ function replay(e){
 
 }
 
-function viewGameRule(){
-    const gameRule = document.querySelector('.gameRule');
-    const closeBtn = document.querySelector('.closeBtn');
-    gameRule.style.zIndex = '0';
-
-    soundPlay('gameRule');
-
-    closeBtn.addEventListener('click', () => gameRule.style.zIndex = '-1')
-}
-
 stopBtn.addEventListener('click', gameOver)
 startBtn.addEventListener('click', gameStart);
 item.addEventListener('click', e => e.target.tagName == 'IMG' && catchFood(e))
 resultBtn.addEventListener('click', e => replay(e))
-gameRuleBtn.addEventListener('click', viewGameRule)
+gameRuleBtn.addEventListener('click', () => {
+    gameRule.viewGameRule();
+    audioPlay.soundPlay('gameRule');
+})
