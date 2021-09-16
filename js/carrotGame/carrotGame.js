@@ -1,9 +1,10 @@
 'use strict';
 
-import AudioPlay from "../game/audioPlay.js";
-import GameRule from "../game/gameRule.js";
+import Game from "../game.js";
 
-const button = document.getElementsByTagName('button');
+const playBtn = document.querySelector('.playBtn');
+const stopBtn = document.querySelector('.stopBtn');
+const replayBtn = document.querySelector('.replayBtn');
 const ul = document.getElementsByTagName('ul')[0];
 const li = document.getElementsByTagName('li');
 const popup = document.querySelector('.popup');
@@ -13,11 +14,18 @@ const gameRuleBtn = document.querySelector('.gameRuleBtn');
 let timeout;
 let resultCount = 0;
 
-const audioPlay = new AudioPlay();
-const gameRule = new GameRule();
+const game = new Game();
+
+function gameStart(){
+    fieldSeting();
+    timerCountDown();
+    game.soundPlay('bg');
+    resultCount = 0;
+    count.innerText = resultCount;
+}
 
 function timerCountDown(){
-    let timer = document.querySelector('.timer');
+    const timer = document.querySelector('.timer');
     let timerCount = 10;
     timer.innerText = `0:${timerCount}`;
      
@@ -25,79 +33,64 @@ function timerCountDown(){
         timerCount--;
         timer.innerText = `0:${timerCount}`;
     
-        if(timerCount == 0){
-            clearInterval(timeout);
-            popupAdd('You Loser😂');
-        }
+        if(timerCount == 0) gameEnd('loser')
     }, 1000)
 }
 
-function play(){
-    if(button[0].className == `play stopBtn`){
-        button[0].innerHTML = `&#9632;`
-        clearInterval(timeout);
-        popupAdd('Replay?!');
-
-        return;
-    } else {
-        button[0].classList.add('stopBtn');
-        button[0].innerHTML = `&#9654;`
-    }
-
+function fieldSeting(){
     for(let i=0; i<li.length; i++){
         const randomX = Math.floor(Math.random() * 950);
         const randomY = Math.floor(Math.random() * 200);
 
         li[i].style.transform = `translate(${randomX}px, ${randomY}px)`;
+        li[i].style.zIndex = '0';
+    } 
+}
+
+function gameEnd(text){
+    ul.removeEventListener('click', () => itemCatch);
+    playBtn.removeEventListener('click', gameStart);
+    clearInterval(timeout);
+    if(text == 'win'){
+        popupAdd('You Win🥇')
+        game.soundPlay('game_win')
+    } else {
+        popupAdd('You Loser😂');
+        game.soundPlay('bug_pull');
     }
-    resultCount = 0;
-    count.innerText = resultCount;
-    
-    timerCountDown();
-    audioPlay.soundPlay('bg');
-    ul.style.display = 'block';   
 }
 
 function replay(){
-    for(let i=0; i<li.length-7; i++){
-        li[i].style.display = 'block';
-    }
-    
     popup.style.display = 'none';
-    play();
+    gameStart();
 }
 
 function popupAdd(text){
-    clearInterval(timeout);
-    button[0].classList.remove('stopBtn');
-
     const result = document.querySelector('.result');
 
     popup.style.display = 'block';
     result.innerText = text;
-
-    text == 'You Win🥇' ? audioPlay.soundPlay('game_win') : audioPlay.soundPlay('bug_pull');
 }
 
-function del(e){
+function itemCatch(e){
     if(e.target.tagName !== 'IMG') return;
     if(e.target.getAttribute('alt') == 'carrot'){
-        e.path[1].style.display = 'none';
+        e.path[1].style.zIndex = '-1';
 
         resultCount++;
-        if(resultCount == 15) popupAdd('You Win🥇');
+        game.soundPlay('carrot_pull');
 
-        audioPlay.soundPlay('carrot_pull');
-        
-    } else popupAdd('You Loser😂');
+        if(resultCount == 15) gameEnd('win');
+    } else gameEnd('loser');
 
     count.innerText = resultCount;
 }
 
-button[0].addEventListener('click', play);
-button[1].addEventListener('click', e => replay(e));
-ul.addEventListener('click', e => del(e));
+playBtn.addEventListener('click', gameStart);
+stopBtn.addEventListener('click', gameEnd);
+replayBtn.addEventListener('click', e => replay(e));
+ul.addEventListener('click', e => itemCatch(e));
 gameRuleBtn.addEventListener('click', () => {
-    gameRule.viewGameRule();
-    audioPlay.soundPlay('gameRule');
+    game.viewGameRule();
+    game.soundPlay('gameRule');
 })

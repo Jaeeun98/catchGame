@@ -24,8 +24,9 @@ section {
 a {
     display:inline-block;
     color:#222;
-    line-height: 35px;;
+    line-height: 35px;
 }
+
 button, a {
     font-size:30px;
     border:3px solid #000;
@@ -35,14 +36,15 @@ button, a {
     background:#f1d5a2;
     color:#222;
 }
-.play {
-    line-height: 20px;;
+.stopBtn {
+    font-size:40px;
+    line-height: 40px;
 }
 header {
     height:400px;
     padding-top:20px;
 }
-header > div {
+header > div:not(.btn) {
     text-align: center;
     margin:20px auto;
 }
@@ -67,11 +69,11 @@ header > div {
 }
 ul {
     height:100%;
-    display:none;
 }
 ul > li {
     position:absolute;
     cursor: pointer;
+    z-index: -1;
 }
 .popup {
     margin:auto;
@@ -82,6 +84,7 @@ ul > li {
     border-radius: 10px;
     padding-top:30px;
     display: none;
+    
 }
 .popup p {
     padding-top:20px;
@@ -107,7 +110,7 @@ ul > li {
     position: absolute;
     width: 50%;
     height:55%;
-    background-color: #00000599;
+    background-color: #22222999;
     top:25%;
     left:25%;
     border-radius: 5px;

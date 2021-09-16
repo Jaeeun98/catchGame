@@ -1,7 +1,6 @@
 'use strict';
 
-import AudioPlay from "../game/audioPlay.js";
-import GameRule from "../game/gameRule.js";
+import Game from "../game.js";
 
 const item = document.querySelector('.item');
 const list = document.querySelectorAll('.item')[0].children
@@ -16,8 +15,14 @@ let startEnd = '';
 let score = 0;
 let mes = 3000;
 
-const audioPlay = new AudioPlay();
-const gameRule = new GameRule();
+const game = new Game();
+
+function gameStart(){
+    reset();
+    setPositionX();
+    foodMove();
+    game.soundPlay('bg');
+}
 
 function setPositionX(){
     for(let i=0; i<list.length; i++){
@@ -51,7 +56,7 @@ function foodMove(){
 
         ani.addEventListener('finish', function(e){
             const target = e.target.effect.target;
-            target.className != 'meat' ? gameOver() : target.style.zIndex = -1
+            target.className != 'meat' ? gameEnd() : target.style.zIndex = -1
         })
         i == list.length && clearInterval(moveAnimate);
     }, 500) 
@@ -64,13 +69,6 @@ function reset(){
     mes = 3000;
 }
 
-function gameStart(){
-    reset();
-    setPositionX();
-    foodMove();
-    audioPlay.soundPlay('bg');
-}
-
 function resultModal(icon, text, btn){
     const resultIcon = document.querySelector('.resultIcon');
     const resultText = document.querySelector('.resultWin');
@@ -80,12 +78,10 @@ function resultModal(icon, text, btn){
     resultIcon.innerText = icon
     resultText.innerText = `YOU ${text}`;
     resultScore.innerText = score;
-    resultBtn.innerText = btn;
-
-    text === 'WIN' ? audioPlay.soundPlay('gameClear') : audioPlay.soundPlay('gameOver');
+    resultBtn.innerText = btn; 
 }
 
-function gameOver(){
+function gameEnd(text){
     startEnd = 'stop'
 
     for(let i=0; i < list.length; i++){
@@ -93,7 +89,13 @@ function gameOver(){
         list[i].getAnimations()[0] && list[i].getAnimations()[0].cancel();
     }
 
-    resultModal('🏅', 'LOSER', 'REPLAY');
+    if(text === 'win'){
+        resultModal('🥇', 'WIN', 'NEXT')
+        game.soundPlay('gameClear')
+    } else {
+        resultModal('🏅', 'LOSER', 'REPLAY');
+        game.soundPlay('gameOver');
+    }
 }
 
 function catchFood(e){
@@ -101,15 +103,15 @@ function catchFood(e){
 
     list.style.zIndex = -1;
     list.getAnimations()[0].cancel();
-    list.className === 'meat' ? gameOver() : scoring(e);
+    list.className === 'meat' ? gameEnd() : scoring(e);
 }
 
 function scoring(e){
     e.target.alt === 'noMeat' ? score += 4 : score++
     scoreNum.innerText = score;
 
-    (e.target.alt ==='tomato' && score%5 == 0) && resultModal('🥇', 'WIN', 'NEXT')
-    audioPlay.soundPlay('catch');
+    (e.target.alt ==='tomato' && score%5 == 0) && gameEnd('win')
+    game.soundPlay('catch');
 }
 
 function replay(e){
@@ -122,11 +124,11 @@ function replay(e){
 
 }
 
-stopBtn.addEventListener('click', gameOver)
+stopBtn.addEventListener('click', gameEnd)
 startBtn.addEventListener('click', gameStart);
 item.addEventListener('click', e => e.target.tagName == 'IMG' && catchFood(e))
 resultBtn.addEventListener('click', e => replay(e))
 gameRuleBtn.addEventListener('click', () => {
-    gameRule.viewGameRule();
-    audioPlay.soundPlay('gameRule');
+    game.viewGameRule();
+    game.soundPlay('gameRule');
 })
