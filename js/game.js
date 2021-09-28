@@ -5,10 +5,12 @@ export default class Game {
     }
 
     soundPlay(sound){
-        const audio = new Audio(`../sound/${sound}.mp3`);
-
-        sound === 'bg' && !this.bg.paused || this.bg.play();
-        sound !== 'bg' && audio.play();
+        if(sound === 'bg'){
+            !this.bg.paused || this.bg.play();
+        } else {
+            const audio = new Audio(`../sound/${sound}.mp3`);
+            audio.play();
+        }
     }
 
     viewGameRule(){
