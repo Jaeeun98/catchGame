@@ -146,7 +146,7 @@ a {
     border-radius: 5px;
     border:1px solid #fff;
     color:#fff;
-    z-index: -1;
+    display:none;
 }
 
 .gameRule h3 {

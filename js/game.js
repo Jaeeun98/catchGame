@@ -1,3 +1,4 @@
+'use strict';
 
 export default class Game {
     constructor(){
@@ -16,9 +17,14 @@ export default class Game {
     viewGameRule(){
         const gameRule = document.querySelector('.gameRule');
         const closeBtn = document.querySelector('.closeBtn');
-        gameRule.style.zIndex = '0';
+        gameRule.style.display = 'block';
 
-        closeBtn.addEventListener('click', () => gameRule.style.zIndex = '-1')
+        closeBtn.addEventListener('click', () => gameRule.style.display = 'none')
+    }
+
+    gameRule(){
+        this.viewGameRule();
+        this.soundPlay('gameRule');
     }
 
 }

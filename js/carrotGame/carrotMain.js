@@ -31,18 +31,20 @@ export class CarrotMain {
         this.ul.addEventListener('click', e => this.itemCatch(e));
         this.replayBtn = document.querySelector('.replayBtn');
         this.replayBtn.addEventListener('click', e => this.replay(e))
-        this.game = new Game();
-        this.carrotField = new CarrotField(carrotNum, bugNum);
         this.time = gameTimer;
         this.carrotNum = carrotNum;
         this.timeout;
         this.resultCount;
+
+        this.game = new Game();
+        this.carrotField = new CarrotField(carrotNum, bugNum);
     }
 
     start(){
         this.reset();
         this.carrotField.init();
         this.timer();
+        this.game.soundPlay('bg');
     }
 
     replay(e){
@@ -50,6 +52,11 @@ export class CarrotMain {
         this.reset();
         this.carrotField.fieldSeting();
         this.timer();
+    }
+
+    reset(){
+        this.score = 0;
+        this.count.innerText = this.score;
     }
 
     timer(){
@@ -63,11 +70,6 @@ export class CarrotMain {
         
             if(timerCount == 0) this.end('loser')
         }, 1000)
-    }
-
-    reset(){
-        this.score = 0;
-        this.count.innerText = this.score;
     }
 
     end(result){
@@ -106,6 +108,4 @@ export class CarrotMain {
     
         this.count.innerText = this.score;
     }
-
-    
 }

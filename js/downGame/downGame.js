@@ -1,37 +1,17 @@
 'use strict';
 
 import Game from "../game.js";
-import Down from "./down.js";
+import { GameSetting } from "./downMain.js";
 const startBtn = document.querySelector('.start');
 const stopBtn = document.querySelector('.stop');
-const resultBtn = document.querySelector('.resultplay');
 const gameRuleBtn = document.querySelector('.gameRuleBtn');
 
-
 const game = new Game();
-const down = new Down();
+const downGame = new GameSetting()
+    .fallTime(3000)  //과일 내려가는 속도
+    .levelUpFallTime(500)  //다음 레벨 속도
+    .setting();
 
-function gameStart(){
-    down.reset();
-    down.setPositionX();
-    down.foodMove();
-    game.soundPlay('bg');
-}
-
-function replay(e){
-    down.popup();
-
-    if(e.target.innerText === 'NEXT'){
-        down.foodMove();
-    } else gameStart();
-
-}
-
-
-stopBtn.addEventListener('click', down.end)
-startBtn.addEventListener('click', gameStart);
-resultBtn.addEventListener('click', e => replay(e));
-gameRuleBtn.addEventListener('click', () => {
-    game.viewGameRule();
-    game.soundPlay('gameRule');
-})
+startBtn.addEventListener('click', () => downGame.start());
+stopBtn.addEventListener('click', () => downGame.end())
+gameRuleBtn.addEventListener('click', () => game.gameRule())

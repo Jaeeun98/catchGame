@@ -14,19 +14,11 @@ const carrotGame = new GameSetting()
     .bugNum(5)
     .setting()
 
-function gameStart(){
-    carrotGame.start();
-    game.soundPlay('bg');
-}
-
 function gameEnd(){
-    playBtn.removeEventListener('click', gameStart);
+    playBtn.removeEventListener('click', carrotGame.start);
     carrotGame.end('loser');
 }
 
-playBtn.addEventListener('click', gameStart);
+playBtn.addEventListener('click', () => carrotGame.start());
 stopBtn.addEventListener('click', gameEnd);
-gameRuleBtn.addEventListener('click', () => {
-    game.viewGameRule();
-    game.soundPlay('gameRule');
-})
+gameRuleBtn.addEventListener('click', () => game.gameRule())
