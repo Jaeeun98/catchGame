@@ -47,6 +47,17 @@ export class CarrotMain {
         this.game.soundPlay('bg');
     }
 
+    end(result){
+        clearInterval(this.timeout);
+        if(result == 'win'){
+            this.popup('You Win🥇')
+            this.game.soundPlay('game_win')
+        } else {
+            this.popup('You Loser😂');
+            this.game.soundPlay('bug_pull');
+        }
+    }
+
     replay(e){
         this.popup();
         this.reset();
@@ -70,17 +81,6 @@ export class CarrotMain {
         
             if(timerCount == 0) this.end('loser')
         }, 1000)
-    }
-
-    end(result){
-        clearInterval(this.timeout);
-        if(result == 'win'){
-            this.popup('You Win🥇')
-            this.game.soundPlay('game_win')
-        } else {
-            this.popup('You Loser😂');
-            this.game.soundPlay('bug_pull');
-        }
     }
 
     popup(resultText){

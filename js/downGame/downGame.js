@@ -2,6 +2,7 @@
 
 import Game from "../game.js";
 import { GameSetting } from "./downMain.js";
+
 const startBtn = document.querySelector('.start');
 const stopBtn = document.querySelector('.stop');
 const gameRuleBtn = document.querySelector('.gameRuleBtn');
