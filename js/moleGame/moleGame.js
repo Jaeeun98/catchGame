@@ -1,24 +1,20 @@
 'use strict';
 
 import Game from "../game.js";
-import { GameSetting } from "./carrotMain.js";
+import { GameSetting } from "./moleMain.js";
 
 const playBtn = document.querySelector('.playBtn');
 const stopBtn = document.querySelector('.stopBtn');
 const gameRuleBtn = document.querySelector('.gameRuleBtn');
 
 const game = new Game();
-const carrotGame = new GameSetting()
+const moleGame = new GameSetting()
     .gameTimer(20)
-    .carrotNum(20)
+    .moleNum(20)
     .bugNum(5)
     .setting()
 
-function gameEnd(){
-    playBtn.removeEventListener('click', carrotGame.start);
-    carrotGame.end('loser');
-}
 
-playBtn.addEventListener('click', () => carrotGame.start());
-stopBtn.addEventListener('click', gameEnd);
+playBtn.addEventListener('click', () => moleGame.start());
+stopBtn.addEventListener('click', () => moleGame.end('loser'));
 gameRuleBtn.addEventListener('click', () => game.gameRule())

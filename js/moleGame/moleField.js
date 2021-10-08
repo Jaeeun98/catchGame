@@ -1,13 +1,13 @@
 
-export default class CarrotField {
-    constructor(carrotNum, bugNum){
+export default class MoleField {
+    constructor(moleNum, bugNum){
         this.ul = document.getElementsByTagName('ul')[0];
-        this.carrotNum = carrotNum;
+        this.moleNum = moleNum;
         this.bugNum = bugNum;
     }
 
     init(){
-        this.addItem('carrot', this.carrotNum);
+        this.addItem('mole', this.moleNum);
         this.addItem('bug', this.bugNum);
     }
 

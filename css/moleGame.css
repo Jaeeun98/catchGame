@@ -14,7 +14,7 @@ section {
     position: relative;
     width:1000px;
     height:700px;
-    background: url('../img/carrotBackground.png') no-repeat;
+    background: url('../img/moleBackground.jpg') no-repeat;
     background-size:100% 100%;
     border-radius: 10px;
     margin: auto;
@@ -75,6 +75,12 @@ ul > li {
     cursor: pointer;
     z-index: -1;
 }
+
+img {
+    width:60px;
+    height:60px;
+}
+
 .popup {
     margin:auto;
     transform : translateY(-220%);
@@ -83,8 +89,7 @@ ul > li {
     height:180px;
     border-radius: 10px;
     padding-top:30px;
-    display: none;
-    
+    display: none; 
 }
 .popup p {
     padding-top:20px;
