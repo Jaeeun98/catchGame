@@ -34,15 +34,15 @@ section {
     border:3px solid #fff;
     margin: auto;
     margin-top:50px;
-    width: 1000px;
-    height:600px;
+    width: 800px;
+    height:400px;
     display: flex;
     justify-content: space-around;
     align-items: center;  
 }
 .box {
     background:#000;
-    width: 800px;
+    width: 600px;
     height:80%;
     border: 3px solid #fff;
     padding: 20px;
