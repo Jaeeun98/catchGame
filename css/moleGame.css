@@ -7,10 +7,10 @@
 
 body {
     width:100%;
-    background-image:radial-gradient(#AAA, transparent 5%);
-    background-image: -webkit-radial-gradient(#AAA, transparent 5%);
-    background-image: -moz-radial-gradient(#AAA, transparent 5%);
-    background-image: -o-radial-gradient(#AAA, transparent 5%);
+    background:radial-gradient(#AAA, transparent 5%);
+    background: -webkit-radial-gradient(#AAA, transparent 5%);
+    background: -moz-radial-gradient(#AAA, transparent 5%);
+    background: -o-radial-gradient(#AAA, transparent 5%);
     background-color:#9dddff;
     background-size:16px 16px;
     padding-top:70px;

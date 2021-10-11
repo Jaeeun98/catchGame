@@ -5,9 +5,6 @@ import Game from "./game.js";
 const dollar = document.querySelectorAll('.dollar');
 const game = new Game();
 
-window.onload = () => {
-    game.soundPlay('background');
-}
 
 dollar.forEach(item => {
     item.addEventListener('click', () => game.soundPlay('coin'))
