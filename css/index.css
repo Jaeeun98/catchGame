@@ -6,7 +6,10 @@
 }
 
 body {
-    background:radial-gradient(#AAA, transparent 5%);
+    background-image:radial-gradient(#AAA, transparent 5%);
+    background: -webkit-radial-gradient(#AAA, transparent 5%);
+    background: -moz-radial-gradient(#AAA, transparent 5%);
+    background: -o-radial-gradient(#AAA, transparent 5%);
     background-color:#000;
     background-size:16px 16px;
     text-align: center;
