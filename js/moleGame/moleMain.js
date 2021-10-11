@@ -41,6 +41,8 @@ export class MoleMain {
     }
 
     start(){
+        if(this.gameStart) return;
+
         this.reset();
         this.moleField.init();
         this.timer();

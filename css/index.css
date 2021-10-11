@@ -6,15 +6,18 @@
 }
 
 body {
-    background: cornflowerblue;
+    background:radial-gradient(#AAA, transparent 5%);
+    background-color:#000;
+    background-size:16px 16px;
     text-align: center;
     height:100vh;
     overflow: hidden;
+    position: relative;
 }
 
 header {
-    margin-top: 50px;
-    color: #fff;
+    margin-top: 70px;
+    color: #FFF;
     font-family: 'DungGeunMo';
     font-size: 130px;
     font-weight: bold;
@@ -23,53 +26,163 @@ header {
 
 h1 {
     cursor: default;
-    text-shadow: 4px 3px 0 #7A7A7A;
+    text-shadow: 4px 3px 0 #333;
 }
 
 section {
+    background: rgba(0, 0, 0, 0.6);
+    border:3px solid #fff;
     margin: auto;
+    margin-top:50px;
     width: 1000px;
-    height:70%;
+    height:600px;
     display: flex;
     justify-content: space-around;
     align-items: center;  
 }
-
+.box {
+    background:#000;
+    width: 800px;
+    height:80%;
+    border: 3px solid #fff;
+    padding: 20px;
+}
 .game {
     width: 100%;
-
 }
+
 a {
     width: 100%;
     cursor: pointer;
 }
 
-.thumbnail {
-    border: 2px solid #fff;
-    width: 85%;
-    height:270px;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: transform 0.8s;
-}
-
-.thumbnail:hover {
-    transform: scale(1.05);
-}
-
 .game h2 {
     font-family: 'DungGeunMo';
     font-size: 40px;
-    text-shadow: 4px 3px 0 #7A7A7A;
+    text-shadow: 0 3px 0 #333;
     color: #fff;
     padding-top:20px;
 }
 
-.ex {
-    margin-top: 20px;
-    line-height:1.7;
-    color:#fff;
-    font-size: 17px;
-    font-weight: 800;
-    cursor: default;
-} 
+h2:hover{
+    transform: scale(1.03);
+}
+
+.pixelIcon > li {
+    position: absolute;
+}
+
+.pixelIcon > li > img {
+    width:100%;
+}
+
+.alienUp1 {
+    top:40%;
+    left:8%;
+    width:50px;
+}
+.alienUp2 {
+    bottom:5%;
+    right:20%;
+    width:50px;
+}
+.alienUp3 {
+    top:0%;
+    right:40%;
+    width:30px;
+}
+
+.pixel1 {
+    top:20%;
+    left:10%;
+    width: 20px;
+    animation: scale 5s linear infinite;
+}
+.pixel2 {
+    bottom:10%;
+    right:30%;
+    width:30px;
+    animation: scale 3s linear infinite;
+}
+.pixel3 {
+    top:10%;
+    right:30%;
+    width:30px;
+    animation: scale 7s linear infinite;
+}
+.pixel4 {
+    top:30%;
+    right:10%;
+    width:20px;
+    animation: scale 3s linear infinite;
+}
+.pixel5 {
+    bottom:20%;
+    left:18%;
+    width:20px;
+    animation: scale 3s linear infinite;
+}
+
+@keyframes scale {
+    0%  {
+
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.dollar {
+    cursor: pointer;
+}
+.dollar1 {
+    top:65%;
+    left:20%;
+    width:40px;
+    animation: rotate 2.5s linear infinite;
+}
+.dollar2 {
+    top:55%;
+    left:23%;
+    width:20px;
+    animation: rotate 2s linear infinite;
+}
+.dollar3 {
+    top:20%;
+    right:20%;
+    width:40px;
+    animation: rotate 2.5s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+.plane1 {
+    bottom:20%;
+    right:15%;
+    width:40px;
+    animation: translateY 4s linear infinite;
+}
+.plane2 {
+    bottom:40%;
+    left:13%;
+    width:40px;
+    animation: translateY 3s linear infinite;
+}
+
+@keyframes translateY {
+    0%{}
+    100% {
+        transform: translateY(-900px);
+    }
+}
