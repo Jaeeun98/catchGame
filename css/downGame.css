@@ -7,12 +7,7 @@
 
 body {
     width: 100%;
-    background:radial-gradient(#AAA, transparent 5%);
-    background: -webkit-radial-gradient(#AAA, transparent 5%);
-    background: -moz-radial-gradient(#AAA, transparent 5%);
-    background: -o-radial-gradient(#AAA, transparent 5%);
     background-color: #eccdb0;
-    background-size:16px 16px;
     text-align: center;
     padding-top:70px;
 }
