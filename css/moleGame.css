@@ -28,19 +28,22 @@ a {
     line-height: 35px;
 }
 
-button, a {
-    font-size:30px;
+button, .backBtn {
+    font-size:20px;
     border:3px solid #000;
     width:50px;
     height:50px;
     border-radius: 5px;
     background:#f1d5a2;
     color:#222;
+    line-height: 10px;;
 }
-.stopBtn {
-    font-size:40px;
+
+.backBtn {
     line-height: 40px;
+    font-size: 28px;;
 }
+
 header {
     height:400px;
     padding-top:20px;
@@ -76,12 +79,10 @@ ul > li {
     cursor: pointer;
     z-index: -1;
 }
-
 img {
     width:60px;
     height:60px;
 }
-
 .popup {
     margin:auto;
     transform : translateY(-220%);

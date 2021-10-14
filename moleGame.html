@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/moleGame.css">
     <link rel="shortcut icon" href="../img/favicon.ico">
+    <script src="https://kit.fontawesome.com/a93dcadf53.js" crossorigin="anonymous"></script>
     <script type="module" defer src="../js/moleGame/moleGame.js"></script>
     <title>Carrot Game</title>
 </head>
@@ -14,8 +15,12 @@
     <section>
         <header>
             <div class="btn">
-                <button type="button" class="playBtn">&#9654;</button>
-                <button type="button" class="stopBtn">■</button>
+                <button type="button" class="playBtn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button type="button" class="stopBtn">
+                    <i class="fas fa-stop"></i>
+                </button>
             </div>
             <div class="timer">0:0</div>
             <div class="count">0</div>
@@ -24,8 +29,12 @@
             <ul>
             </ul>
             <div class="popup">
-                <a href="javascript:history.back()" class="back">←</a>
-                <button class="replayBtn">&#8634;</button>
+                <a href="javascript:history.back()" class="back">
+                    <i class="fas fa-long-arrow-alt-left backBtn"></i>
+                </a>
+                <button class="replayBtn">
+                    <i class="fas fa-reply"></i>
+                </button>
                 <p class="result"></p>
             </div>
         </div>
