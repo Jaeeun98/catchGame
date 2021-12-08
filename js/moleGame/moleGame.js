@@ -17,4 +17,4 @@ const moleGame = new GameSetting()
 
 playBtn.addEventListener('click', () => moleGame.start());
 stopBtn.addEventListener('click', () => moleGame.end('loser'));
-gameRuleBtn.addEventListener('click', () => game.gameRule())
+gameRuleBtn.addEventListener('click', () => game.viewGameRule());

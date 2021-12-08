@@ -3,7 +3,6 @@
 import Game from "./game.js";
 
 const dollar = document.querySelectorAll('.dollar');
-
 const game = new Game();
 
 

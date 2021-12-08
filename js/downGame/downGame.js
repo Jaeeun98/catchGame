@@ -15,4 +15,4 @@ const downGame = new GameSetting()
 
 startBtn.addEventListener('click', () => downGame.start());
 stopBtn.addEventListener('click', () => downGame.end())
-gameRuleBtn.addEventListener('click', () => game.gameRule())
+gameRuleBtn.addEventListener('click', () => game.viewGameRule())

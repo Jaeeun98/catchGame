@@ -20,11 +20,6 @@ export default class Game {
         gameRule.style.display = 'block';
 
         closeBtn.addEventListener('click', () => gameRule.style.display = 'none')
-    }
-
-    gameRule(){
-        this.viewGameRule();
         this.soundPlay('gameRule');
     }
-
 }
